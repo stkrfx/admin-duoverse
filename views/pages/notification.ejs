@@ -1,0 +1,69 @@
+<% template=name=> { %>
+    <%- include(`../templates/${name}`) %>
+        <% } %>
+            <!doctype html>
+            <html class="h-full bg-gray-100">
+
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <script src="https://cdn.tailwindcss.com"></script>
+            </head>
+
+            <body class="h-full">
+                <div class="min-h-full">
+                    <% template('nav') %>
+
+                        <header class="bg-white shadow">
+                            <div class="flex mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                                <h1 class="text-3xl font-bold tracking-tight text-gray-900">Announcement</h1>
+                                <a href="/announce"
+                                    class="ml-auto px-4 py-2 font-semibold text-sm bg-sky-500 text-white rounded-full shadow-sm">Create Notification</a>
+                                <a href="/cnotify"
+                                    class="ml-4 px-4 py-2 font-semibold text-sm bg-sky-500 text-white rounded-full shadow-sm">Create
+                                    Announcement</a>
+                            </div>
+                        </header>
+                        <main class="bg-white mt-4 py-8 px-6">
+                            <div
+                                class="mx-auto grid max-w-2xl grid-cols-1 gap-x-4 gap-y-8 lg:mx-0 lg:max-w-none md:grid-cols-2 lg:grid-cols-3">
+
+                                <% if (!matches || matches.length===0) { %>
+                                    <p class="text-gray-600">No announcement available at the moment.</p>
+                                    <% } else { %>
+
+                                        <% matches.forEach(function(match, index) { %>
+                                            <article
+                                                class="bg-sky-100 p-4 rounded-lg max-w-xl flex-col items-start justify-between">
+                                                <img src="" alt="" srcset="">
+                                                <div class="group relative">
+                                                    <div
+                                                        class="flex items-center mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                                                        <a>
+                                                            <span class="absolute inset-0"></span>
+                                                            Announcement #<%= index+1 %>
+                                                        </a>
+
+                                                    </div>
+
+                                                    <div class="mt-2"><b><%= match.title %>:</b> <%= match.subtitle %></div>
+                                                </div>
+                                                <div class="relative mt-4 flex items-center">
+                                                    <a href="/enotify/<%= match._id %>"
+                                                        class="px-6 py-2 font-semibold text-sm bg-sky-500 text-white rounded-full shadow-sm">Edit
+                                                        Details</a>
+                                                    <a href="/deln/<%= match._id %>"
+                                                        class="ml-4 px-6 py-2 font-semibold text-sm bg-red-500 text-white rounded-full shadow-sm">Delete</a>
+                                                    </div>
+                                            </article>
+                                            <% }); %>
+
+                                                <% } %>
+
+                                                    <!-- More posts... -->
+                            </div>
+                        </main>
+                </div>
+            </body>
+
+            </html>

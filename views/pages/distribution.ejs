@@ -1,0 +1,67 @@
+<% template=name=> { %>
+    <%- include(`../templates/${name}`) %>
+        <% } %>
+            <!doctype html>
+            <html class="h-full bg-gray-100">
+
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <script src="https://cdn.tailwindcss.com"></script>
+            </head>
+
+            <body class="h-full">
+                <div class="min-h-full">
+                    <% template('nav') %>
+
+                        <header class="bg-white shadow">
+                            <div class="flex mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                                <h1 class="text-3xl font-bold tracking-tight text-gray-900">Distribute Prize</h1>
+                            </div>
+                        </header>
+                        <main class="bg-white mt-4">
+                            <% if (!matches || matches.length===0) { %>
+                                <p class=" py-8 px-6 text-gray-600">No users available at the moment.</p>
+                                <% } else { %>
+
+                                    <div class="w-full overflow-x-auto">
+                                        <table class="w-full bg-white shadow-md rounded-lg">
+                                            <thead>
+                                                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                                    <th class="py-3 px-6 text-left">Username</th>
+                                                    <th class="py-3 px-6 text-left">BGMI</th>
+                                                    <th class="py-3 px-6 text-left">Free Fire</th>
+                                                    <th class="py-3 px-6 text-left">Coins</th>
+                                                    <th class="py-3 px-6 text-left">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-gray-600 text-sm font-light">
+                                                <!-- Replace with your actual data using a loop or dynamic rendering -->
+                                                <% matches.forEach(function(match, index) { %>
+                                                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                                    <td class="py-3 px-6 text-left"><%= match.username %></td>
+                                                    <td class="py-3 px-6 text-left"><%= match.bgmi %></td>
+                                                    <td class="py-3 px-6 text-left"><%= match.freefire %></td>
+                                                    <td class="py-3 px-6 text-left">
+                                                        <%= match.coins %>
+                                                    </td>
+                                                    <td>
+                                                        <form method="post" action="/user/<%= match._id %>" class="py-3 px-6 text-left">
+                                                            <input type="text" name="coins" class="w-32 py-1 px-2 border rounded-md">
+                                                            <button class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600">Add</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                <% }); %>
+                                                <!-- Repeat this row for each user -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                
+                                <% }  %>
+                        </main>
+                </div>
+            </body>
+
+            </html>

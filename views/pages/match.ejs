@@ -1,0 +1,217 @@
+<% template=name=> { %>
+    <%- include(`../templates/${name}`) %>
+        <% } %>
+            <!doctype html>
+            <html class="h-full bg-gray-100">
+
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <script src="https://cdn.tailwindcss.com"></script>
+            </head>
+
+            <body class="h-full">
+                <div class="min-h-full">
+                    <% template('nav') %>
+                        <main class="bg-white mt-4 py-8 px-6">
+                            <form method="post" action="/match<% if (data._id ) { %>/<%- data._id%><% } %>"
+                                enctype="multipart/form-data">
+                                <div class="space-y-12">
+                                    <div>
+                                        <h1 class="font-semibold text-gray-900">Edit Match</h1>
+                                    </div>
+                                    <div>
+                                        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                            <div class="sm:col-span-3">
+                                                <label for="first-name"
+                                                    class="block text-sm font-medium leading-6 text-gray-900">Category</label>
+                                                <div class="mt-2">
+                                                    <select required name="category"
+                                                        class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                        <option value="Battlegrounds India" <% if
+                                                            (data.category==='Battlegrounds India' ) { %>selected<% } %>
+                                                                >Battlegrounds India</option>
+                                                        <option value="Free Fire MAX" <% if
+                                                            (data.category==='Free Fire MAX' ) { %>selected<% } %>>Free
+                                                                Fire MAX</option>
+                                                        <option value="Mega Contest" <% if
+                                                            (data.category==='Mega Contest' ) { %>selected<% } %>>Mega
+                                                                Contest</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="sm:col-span-3">
+                                                <label for="last-name"
+                                                    class="block text-sm font-medium leading-6 text-gray-900">Sub
+                                                    Category</label>
+                                                <div class="mt-2">
+                                                    <select required name="subCategory"
+                                                        class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                        <option value="Classic - BGMI" <% if
+                                                            (data.subCategory==='Classic - BGMI' ) { %>selected<% } %>
+                                                                >Classic - BGMI</option>
+                                                        <option value="Classic - Free Fire" <% if
+                                                            (data.subCategory==='Classic - Free Fire' ) { %>selected<% }
+                                                                %>
+                                                                >Classic - Free Fire</option>
+                                                        <option value="Mini" <% if (data.subCategory==='Mini' ) { %>
+                                                            selected
+                                                            <% } %>>Mini
+                                                        </option>
+                                                        <option value="TDM" <% if (data.subCategory==='TDM' ) { %>
+                                                            selected <% } %>>TDM</option>
+                                                        <option value="Sniper TDM" <% if
+                                                            (data.subCategory==='Sniper TDM' ) { %>selected<% } %>
+                                                                >Sniper TDM</option>
+                                                        <option value="Clash Squad" <% if
+                                                            (data.subCategory==='Clash Squad' ) { %>selected<% } %>
+                                                                >Clash Squad</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="sm:col-span-3">
+                                                <label for="first-name"
+                                                    class="block text-sm font-medium leading-6 text-gray-900">Team
+                                                    Type</label>
+                                                <div class="mt-2">
+                                                    <input value="<%- data.teamType %>" required type="text"
+                                                        name="teamType"
+                                                        class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                </div>
+                                            </div>
+
+                                            <div class="sm:col-span-3">
+                                                <label for="last-name"
+                                                    class="block text-sm font-medium leading-6 text-gray-900">Match Status</label>
+                                                <div class="mt-2">
+                                                    <select required name="status"
+                                                        class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                        <option value="Pending" <% if
+                                                            (data.category==='Pending' ) { %>selected<% } %>
+                                                                >Pending</option>
+                                                        <option value="Ongoing" <% if
+                                                            (data.category==='Ongoing' ) { %>selected<% } %>
+                                                                >Ongoing</option>
+                                                        <option value="Review" <% if
+                                                            (data.category==='Review' ) { %>selected<% } %>>Review</option>
+                                                        <option value="Completed" <% if
+                                                            (data.category==='Completed' ) { %>selected<% } %>>Completed</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="sm:col-span-2 sm:col-start-1">
+                                                <label for="city"
+                                                    class="block text-sm font-medium leading-6 text-gray-900">Prize
+                                                    Pool</label>
+                                                <div class="mt-2">
+                                                    <input value="<%- data.prizePool %>" type="text" name="prizePool"
+                                                        class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                </div>
+                                            </div>
+
+                                            <div class="sm:col-span-2">
+                                                <label for="region"
+                                                    class="block text-sm font-medium leading-6 text-gray-900">Per
+                                                    Kill</label>
+                                                <div class="mt-2">
+                                                    <input value="<%- data.perKill %>" required type="text"
+                                                        name="perKill"
+                                                        class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                </div>
+                                            </div>
+
+                                            <div class="sm:col-span-2">
+                                                <label for="postal-code"
+                                                    class="block text-sm font-medium leading-6 text-gray-900">Entry
+                                                    Fee</label>
+                                                <div class="mt-2">
+                                                    <input value="<%- data.entryFee %>" required type="text"
+                                                        name="entryFee"
+                                                        class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                </div>
+                                            </div>
+
+                                            <div class="sm:col-span-3">
+                                                <label for="first-name"
+                                                    class="block text-sm font-medium leading-6 text-gray-900">Date</label>
+                                                <div class="mt-2">
+                                                    <input value="<%- data.date.toISOString().substr(0, 10) %>" required
+                                                        type="date" name="dated"
+                                                        class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                </div>
+                                            </div>
+
+                                            <div class="sm:col-span-3">
+                                                <label for="last-name"
+                                                    class="block text-sm font-medium leading-6 text-gray-900">Time</label>
+                                                <div class="mt-2">
+                                                    <input value="<%- data.date.toTimeString().slice(0, 5) %>" required
+                                                        type="time" name="time"
+                                                        class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                </div>
+                                            </div>
+                                            <div class="sm:col-span-3">
+                                                <label for="first-name"
+                                                    class="block text-sm font-medium leading-6 text-gray-900">Total
+                                                    Spots</label>
+                                                <div class="mt-2">
+                                                    <input value="<%- data.totalSpots %>" required type="number"
+                                                        name="totalSpots"
+                                                        class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                </div>
+                                            </div>
+
+                                            <div class="sm:col-span-3">
+                                                <label for="last-name"
+                                                    class="block text-sm font-medium leading-6 text-gray-900">Spectate
+                                                    Link</label>
+                                                <div class="mt-2">
+                                                    <input value="<%- data.spectateLink %>" required type="text"
+                                                        name="spectateLink"
+                                                        class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                </div>
+                                            </div>
+                                            <div class="sm:col-span-3">
+                                                <label for="first-name"
+                                                    class="block text-sm font-medium leading-6 text-gray-900">Match
+                                                    Id</label>
+                                                <div class="mt-2">
+                                                    <input value="<%- data.matchId %>" required type="text"
+                                                        name="matchId"
+                                                        class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                </div>
+                                            </div>
+
+                                            <div class="sm:col-span-3">
+                                                <label for="last-name"
+                                                    class="block text-sm font-medium leading-6 text-gray-900">Match
+                                                    Password</label>
+                                                <div class="mt-2">
+                                                    <input value="<%- data.matchPass %>" required type="text"
+                                                        name="matchPass"
+                                                        class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-6 flex items-center justify-end gap-x-6">
+                                    <a href="#"
+                                        class="px-6 py-2 font-semibold text-sm bg-red-500 text-white rounded-full shadow-sm">Cancel
+                                        Match</a>
+                                    <a href="/"
+                                        class="px-6 py-2 font-semibold text-sm bg-gray-500 text-white rounded-full shadow-sm">Back</a>
+                                    <button type="submit"
+                                        class="px-6 py-2 font-semibold text-sm bg-blue-500 text-white rounded-full shadow-sm">Save</button>
+                                </div>
+                            </form>
+
+                        </main>
+                </div>
+            </body>
+
+            </html>
