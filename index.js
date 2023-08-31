@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-mongoose.connect('mongodb+srv://stkrfx:pJy7Q60bVIvrWRMM@duoverse.vhuehr8.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://rajbasantkumar12:5LnoNLtACK6WwZTN@cluster0.u8vxpno.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Connected to MongoDB Atlas');
     })
