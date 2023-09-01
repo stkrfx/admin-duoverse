@@ -6,20 +6,20 @@ const userSchema = new mongoose.Schema({
         unique: true,
         required: true,
     },
-    firstName: {
+    password: {
         type: String,
-    },
-    lastName: {
-        type: String,
+        required: true,
     },
     fullName: {
         type: String,
+        required: true,
     },
     picture: {
         type: String,
     },
     mobile: {
         type: String,
+        required: true,
     },
     referralCode: {
         type: String,
@@ -35,16 +35,24 @@ const userSchema = new mongoose.Schema({
         unique: true,
     },
     bonus:{
-        type: String,
-        default: '0',
+        type: Number,
+        default: 0,
     },
     coins:{
-        type: String,
-        default: '0',
+        type: Number,
+        default: 0,
     },
     earnings:{
+        type: Number,
+        default: 0,
+    },
+    kills:{
+        type: Number,
+        defauly: 0,
+    },
+    otp:{
         type: String,
-        default: '0',
+        required: true,
     },
     matches: [
         {
@@ -52,7 +60,8 @@ const userSchema = new mongoose.Schema({
                 type: String,
             },
             score: {
-                type: Number
+                type: Number,
+                default:0,
             }
         }
     ]
