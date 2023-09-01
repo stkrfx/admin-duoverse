@@ -6,10 +6,6 @@ const matchSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    status:{
-        type:String,
-        default: 'Pending',
-    },
     category: {
         type: String,
         required: true,
@@ -56,6 +52,10 @@ const matchSchema = new mongoose.Schema({
     matchPass: {
         type: String,
         required: true,
+    },
+    status:{
+        type: String,
+        default: 'pening'
     },
     users: [
         {
