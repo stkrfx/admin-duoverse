@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema({
     },
     kills:{
         type: Number,
-        defauly: 0,
+        default: 0,
     },
     otp:{
         type: String,
