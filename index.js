@@ -250,7 +250,7 @@ app.get('/distribute/:id',async(req,res)=>{
 
 app.post('/user/:id',async(req,res)=>{
     const existingUser = await User.findOne({ _id: req.params.id });
-    existingUser.earnings = +existingUser.earnings + +req.body.coins
+    existingUser.coins = +existingUser.coins + +req.body.coins
     await existingUser.save()
     res.redirect('/users')
 })
