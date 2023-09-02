@@ -236,27 +236,33 @@ app.get('/users',async(req,res)=>{
 
 app.get('/distribute/:id',async(req,res)=>{
     const existingUser = await Match.findOne({ _id: req.params.id });
-    console.log(existingUser.users);
+    // console.log(existingUser.users);
 
-    const joinedMatches = existingUser.users
-    // existingUser.users.forEach(async (user)=>{
-    //     const curUser = await User.findOne({ email: user.user });
-    //     matches.push(curUser)
-    // })
+    // console.log(matches);
 
-    const matches = await Promise.all(
-		joinedMatches.map(async (user) => {
-			return await User.findOne({ email: user.user });
-		})
-	);
-    renderPage(res,'distribution', {matches})
+    renderPage(res,'distribution', {existingUser})
 })
 
-app.post('/user/:id',async(req,res)=>{
-    const existingUser = await User.findOne({ _id: req.params.id });
-    existingUser.coins = +existingUser.coins + +req.body.coins
+app.post('/user/:mid/:id',async(req,res)=>{
+    const existingUser = await User.findOne({ email: req.params.id });
+    const currMatch = await Match.findOne({matchUid : req.params.mid})
+
+    const userIndex = currMatch.users.findIndex((user) => user.user === req.params.id);
+
+  if (userIndex !== -1) {
+    // Update the 'paid' field for the user with the matching email
+    currMatch.users[userIndex].paid = 'paid'; // Assuming 'req.body.paid' contains the updated value
+
+    // Save the updated Match document
+    await currMatch.save();
+  }
+
+  console.log(currMatch);
+    existingUser.kills = existingUser.kills + +req.body.kills
+    existingUser.coins = existingUser.coins + +req.body.coins
+    // currMatch.
     await existingUser.save()
-    res.redirect('/users')
+    res.redirect(`/distribute/${currMatch._id}`)
 })
 
 const port = process.env.PORT || 3001;

@@ -20,7 +20,7 @@
                             </div>
                         </header>
                         <main class="bg-white mt-4">
-                            <% if (!matches || matches.length===0) { %>
+                            <% if (!existingUser.users || existingUser.users.users===0) { %>
                                 <p class=" py-8 px-6 text-gray-600">No users available at the moment.</p>
                                 <% } else { %>
 
@@ -31,26 +31,31 @@
                                                     <th class="py-3 px-6 text-left">Username</th>
                                                     <th class="py-3 px-6 text-left">BGMI</th>
                                                     <th class="py-3 px-6 text-left">Free Fire</th>
+                                                    <th class="py-3 px-6 text-left">Kills</th>
                                                     <th class="py-3 px-6 text-left">Coins</th>
-                                                    <th class="py-3 px-6 text-left">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-gray-600 text-sm font-light">
                                                 <!-- Replace with your actual data using a loop or dynamic rendering -->
-                                                <% matches.forEach(function(match, index) { %>
+                                                <% existingUser.users.forEach(function(match, index) { %>
                                                 <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                                    <td class="py-3 px-6 text-left"><%= match.username %></td>
+                                                    <td class="py-3 px-6 text-left"><%= match.user %></td>
                                                     <td class="py-3 px-6 text-left"><%= match.bgmi %></td>
                                                     <td class="py-3 px-6 text-left"><%= match.freefire %></td>
-                                                    <td class="py-3 px-6 text-left">
-                                                        <%= match.coins %>
-                                                    </td>
+                                                    <% if(match.paid !== 'paid'){ %>
+                                                    <form method="post" action="/user/<%= existingUser.matchUid %>/<%= match.user %>" class="py-3 px-6 text-left">
                                                     <td>
-                                                        <form method="post" action="/user/<%= match._id %>" class="py-3 px-6 text-left">
+                                                            <input per-kill=<%= existingUser.perKill %> oninput="handleInput(this)" type="text" name="kills" class="w-32 py-1 px-2 border rounded-md">
+                                                        </td>
+                                                    <td>
                                                             <input type="text" name="coins" class="w-32 py-1 px-2 border rounded-md">
                                                             <button class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600">Add</button>
-                                                        </form>
-                                                    </td>
+                                                        </td>
+                                                    </form>
+
+                                                    <% } else {%>
+                                                        <td>Paid</td>
+                                                    <% }%>
                                                 </tr>
                                                 <% }); %>
                                                 <!-- Repeat this row for each user -->
@@ -60,8 +65,22 @@
                                     
                                 
                                 <% }  %>
+
                         </main>
                 </div>
+                                    <script>
+                                        function handleInput(elem) {
+                                            const perkill = elem.getAttribute('per-kill')
+                                            const elemParent = elem.parentElement
+
+                                            const elemSibLing = elemParent.nextElementSibling
+                                            console.log(elemSibLing);
+                                            const inp = elemSibLing.querySelector('input')
+
+                                            inp.value = +elem.value * +perkill
+                                            
+                                        }
+                                    </script>
             </body>
 
             </html>

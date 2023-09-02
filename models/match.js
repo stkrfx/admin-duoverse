@@ -61,6 +61,15 @@ const matchSchema = new mongoose.Schema({
         {
             user:{
                 type:String
+            },
+            paid:{
+                type:String
+            },
+            bgmi:{
+                type:String
+            },
+            freefire:{
+                type:String
             }
         }
     ]

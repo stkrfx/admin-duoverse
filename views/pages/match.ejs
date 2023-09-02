@@ -88,16 +88,16 @@
                                                 <div class="mt-2">
                                                     <select required name="status"
                                                         class="block w-full rounded-md border-0 py-1.5 px-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                        <option value="Pending" <% if
-                                                            (data.category==='Pending' ) { %>selected<% } %>
+                                                        <option value="pening" <% if
+                                                            (data.status==='pening' ) { %>selected<% } %>
                                                                 >Pending</option>
                                                         <option value="Ongoing" <% if
-                                                            (data.category==='Ongoing' ) { %>selected<% } %>
+                                                            (data.status==='Ongoing' ) { %>selected<% } %>
                                                                 >Ongoing</option>
-                                                        <option value="Review" <% if
-                                                            (data.category==='Review' ) { %>selected<% } %>>Review</option>
-                                                        <option value="Completed" <% if
-                                                            (data.category==='Completed' ) { %>selected<% } %>>Completed</option>
+                                                        <option value="review" <% if
+                                                            (data.status==='review' ) { %>selected<% } %>>Review</option>
+                                                        <option value="completed" <% if
+                                                            (data.status==='completed' ) { %>selected<% } %>>Completed</option>
                                                     </select>
                                                 </div>
                                             </div>
