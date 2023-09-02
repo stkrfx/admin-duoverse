@@ -179,15 +179,17 @@ app.get('/notify',async (req,res)=>{
     renderPage(res,'notification', {matches})
 } )
 
-app.post('/notify',async (req,res)=>{
+app.post('/new/:type',async (req,res)=>{
     const {
         title,
         subtitle
     } = req.body
+    const type = req.params.type
 
     await new Notify({
         title,
-        subtitle
+        subtitle,
+        type
     }).save();
 
     res.redirect('/notify')
@@ -225,10 +227,6 @@ app.get('/deln/:id/', async (req, res) => {
 
 app.get('/announce',(req,res)=>{
     renderPage(res, 'cnotify',{type:'notification'})
-})
-
-app.post('/announce',(req,res)=>{
-    res.redirect('/notify')
 })
 
 app.get('/users',async(req,res)=>{

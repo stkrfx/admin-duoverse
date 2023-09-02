@@ -14,7 +14,7 @@
                 <div class="min-h-full">
                     <% template('nav') %>
                         <main class="bg-white mt-4 py-8 px-6">
-                            <form method="post" action="<% if (type) { %>/announce<% }else{ %>/notify<% } %>">
+                            <form method="post" action="<% if (type) { %>/new/announce<% }else{ %>/new/notify<% } %>">
                                 <div class="space-y-12">
                                     <div>
                                         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
