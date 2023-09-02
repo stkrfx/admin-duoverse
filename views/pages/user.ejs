@@ -46,7 +46,7 @@
                                                         <%= match.coins %>
                                                     </td>
                                                     <td>
-                                                        <form method="post" action="/user/<%= match._id %>" class="py-3 px-6 text-left">
+                                                        <form method="post" action="/add/<%= match.username %>" class="py-3 px-6 text-left">
                                                             <input type="text" name="coins" class="w-32 py-1 px-2 border rounded-md">
                                                             <button class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600">Add</button>
                                                         </form>

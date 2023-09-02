@@ -275,6 +275,18 @@ app.get('/distribute/:id',async(req,res)=>{
     renderPage(res,'distribution', {existingUser})
 })
 
+app.post('/add/:id',async(req,res)=>{
+    const coins = req.body.coins
+    const existingUser = await User.findOne({ email: req.params.id });
+
+    existingUser.coins += coins
+
+    existingUser.save()
+
+    res.redirect(`/distribute/${currMatch._id}`)
+
+})
+
 app.post('/user/:mid/:id',async(req,res)=>{
     const existingUser = await User.findOne({ email: req.params.id });
     const currMatch = await Match.findOne({matchUid : req.params.mid})
