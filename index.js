@@ -238,11 +238,17 @@ app.get('/distribute/:id',async(req,res)=>{
     const existingUser = await Match.findOne({ _id: req.params.id });
     console.log(existingUser.users);
 
-    const matches = []
-    existingUser.users.forEach(async (user)=>{
-        const curUser = await User.findOne({ _id: user.user });
-        matches.push(curUser)
-    })
+    const joinedMatches = existingUser.users
+    // existingUser.users.forEach(async (user)=>{
+    //     const curUser = await User.findOne({ email: user.user });
+    //     matches.push(curUser)
+    // })
+
+    const matches = await Promise.all(
+		joinedMatches.map(async (user) => {
+			return await User.findOne({ email: user.user });
+		})
+	);
     renderPage(res,'distribution', {matches})
 })
 
