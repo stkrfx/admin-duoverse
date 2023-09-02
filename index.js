@@ -97,7 +97,9 @@ app.post('/match', upload.single('coverPhoto'), async (req, res) => {
         matchPass
     } = req.body
 
-    const date = new Date(`${dated}T${time}`);
+    const dateTimeStr = `${dated}T${time}`;
+    const sourceTimeZone = 'Asia/Kolkata';
+    const formattedDateTime = moment.tz(dateTimeStr, sourceTimeZone);
 
     await new Match({
         matchUid: uuidv4(),
@@ -108,7 +110,7 @@ app.post('/match', upload.single('coverPhoto'), async (req, res) => {
         prizePool,
         perKill,
         entryFee,
-        date,
+        date : formattedDateTime.toDate(),
         totalSpots,
         spectateLink,
         matchId,
@@ -152,7 +154,9 @@ app.post('/match/:id', upload.single('coverPhoto'), async (req, res) => {
         status
     } = req.body
 
-    const date = new Date(`${dated}T${time}`);
+    const dateTimeStr = `${dated}T${time}`;
+    const sourceTimeZone = 'Asia/Kolkata';
+    const formattedDateTime = moment.tz(dateTimeStr, sourceTimeZone);
 
     await Match.findOneAndUpdate(
         { _id: req.params.id },
@@ -163,7 +167,7 @@ app.post('/match/:id', upload.single('coverPhoto'), async (req, res) => {
             prizePool,
             perKill,
             entryFee,
-            date,
+            date : formattedDateTime.toDate(),
             totalSpots,
             spectateLink,
             matchId,

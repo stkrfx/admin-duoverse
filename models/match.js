@@ -72,7 +72,8 @@ const matchSchema = new mongoose.Schema({
                 type:String
             },
             score:{
-                type:Number
+                type:Number,
+                default: 0
             }
         }
     ]
