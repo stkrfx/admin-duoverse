@@ -54,6 +54,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    deposit:{
+        type:String,
+        default: 0,
+    },
     matches: [
         {
             matchId: {
@@ -62,6 +66,19 @@ const userSchema = new mongoose.Schema({
             score: {
                 type: Number,
                 default:0,
+            }
+        }
+    ],
+    wallet:[
+        {
+            type: {
+                type: String,
+            },
+            date: {
+                type: Date,
+            },
+            amt:{
+                type: String,
             }
         }
     ]

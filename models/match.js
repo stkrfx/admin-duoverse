@@ -70,6 +70,9 @@ const matchSchema = new mongoose.Schema({
             },
             freefire:{
                 type:String
+            },
+            score:{
+                type:Number
             }
         }
     ]

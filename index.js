@@ -4,9 +4,11 @@ const mongoose = require('mongoose');
 const Match = require('./models/match')
 const Banner = require('./models/banner')
 const Notify = require('./models/notify')
+const Withdraw = require('./models/withdraw')
 const User = require('./models/user')
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
+const { log } = require('console');
 
 // Set up Multer storage and options
 const storage = multer.diskStorage({
@@ -234,11 +236,36 @@ app.get('/users',async(req,res)=>{
     renderPage(res,'user', {matches})
 })
 
+app.get('/withdraw',async(req,res)=>{
+    const matches = await Withdraw.find({});
+    console.log(matches);
+    renderPage(res,'withdraw', {matches})
+})
+
+app.post('/done/:id/:gid',async(req,res)=>{
+    const user = await User.findOne({email : req.params.id});
+    const withdraw = await Withdraw.findById(req.params.gid);
+    const amount = withdraw.amount
+    user.wallet.push({
+        type: 'Withdrawal',
+        date: new Date(),
+        amt:amount,
+    })
+    await user.save()
+
+    await Withdraw.deleteOne({ _id: req.params.gid })
+
+
+    res.redirect('/withdraw')
+})
+
 app.get('/distribute/:id',async(req,res)=>{
     const existingUser = await Match.findOne({ _id: req.params.id });
     // console.log(existingUser.users);
 
     // console.log(matches);
+
+   
 
     renderPage(res,'distribution', {existingUser})
 })
@@ -252,9 +279,18 @@ app.post('/user/:mid/:id',async(req,res)=>{
   if (userIndex !== -1) {
     // Update the 'paid' field for the user with the matching email
     currMatch.users[userIndex].paid = 'paid'; // Assuming 'req.body.paid' contains the updated value
+    currMatch.users[userIndex].score = +req.body.coins; // Assuming 'req.body.paid' contains the updated value
 
     // Save the updated Match document
     await currMatch.save();
+  }
+  
+    const matchIndex = existingUser.matches.findIndex((user) => user.matchId === req.params.mid);
+
+  if (matchIndex !== -1) {
+    // Update the 'paid' field for the user with the matching email
+    existingUser.matches[matchIndex].paid = 'paid'; // Assuming 'req.body.paid' contains the updated value
+
   }
 
   console.log(currMatch);
