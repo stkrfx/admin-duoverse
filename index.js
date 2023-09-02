@@ -148,7 +148,6 @@ app.post('/match/:id', upload.single('coverPhoto'), async (req, res) => {
         prizePool,
         perKill,
         entryFee,
-        dated,
         time,
         totalSpots,
         spectateLink,
@@ -157,9 +156,6 @@ app.post('/match/:id', upload.single('coverPhoto'), async (req, res) => {
         status
     } = req.body
 
-    const dateTimeStr = `${dated}T${time}`;
-    const sourceTimeZone = 'Asia/Kolkata';
-    const formattedDateTime = moment.tz(dateTimeStr, sourceTimeZone);
 
     await Match.findOneAndUpdate(
         { _id: req.params.id },
@@ -170,7 +166,6 @@ app.post('/match/:id', upload.single('coverPhoto'), async (req, res) => {
             prizePool,
             perKill,
             entryFee,
-            date : formattedDateTime.toDate(),
             totalSpots,
             spectateLink,
             matchId,
