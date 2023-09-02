@@ -281,11 +281,11 @@ app.post('/add/:id',async(req,res)=>{
     const coins = req.body.coins
     const existingUser = await User.findOne({ email: req.params.id });
 
-    existingUser.coins += coins
+    existingUser.coins += +coins
 
     existingUser.save()
 
-    res.redirect(`/distribute/${currMatch._id}`)
+    res.redirect(`/users`)
 
 })
 
