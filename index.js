@@ -305,11 +305,33 @@ app.get('/distribute/:id',async(req,res)=>{
     renderPage(res,'distribution', {existingUser})
 })
 
-app.post('/add/:id',async(req,res)=>{
+app.post('/add/coins/:id',async(req,res)=>{
     const coins = req.body.coins
     const existingUser = await User.findOne({ email: req.params.id });
 
     existingUser.coins += +coins
+
+    existingUser.save()
+
+    res.redirect(`/users`)
+
+})
+app.post('/add/bonus:id',async(req,res)=>{
+    const bonus = req.body.bonus
+    const existingUser = await User.findOne({ email: req.params.id });
+
+    existingUser.bonus += +bonus
+
+    existingUser.save()
+
+    res.redirect(`/users`)
+
+})
+app.post('/add/deposit/:id',async(req,res)=>{
+    const deposit = req.body.deposit
+    const existingUser = await User.findOne({ email: req.params.id });
+
+    existingUser.deposit += +deposit
 
     existingUser.save()
 

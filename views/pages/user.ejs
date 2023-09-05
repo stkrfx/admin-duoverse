@@ -33,6 +33,10 @@
                                                     <th class="py-3 px-6 text-left">Full Name</th>
                                                     <th class="py-3 px-6 text-left">Coins</th>
                                                     <th class="py-3 px-6 text-left">Actions</th>
+                                                    <th class="py-3 px-6 text-left">Bonus</th>
+                                                    <th class="py-3 px-6 text-left">Actions</th>
+                                                    <th class="py-3 px-6 text-left">Deposit</th>
+                                                    <th class="py-3 px-6 text-left">Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-gray-600 text-sm font-light">
@@ -43,11 +47,29 @@
                                                     <td class="py-3 px-6 text-left"><%= match.email %></td>
                                                     <td class="py-3 px-6 text-left"><%= match.fullName %></td>
                                                     <td class="py-3 px-6 text-left">
-                                                        <%= match.coins %>
+                                                        C: <%= match.coins %>
                                                     </td>
                                                     <td>
-                                                        <form method="post" action="/add/<%= match.email %>" class="py-3 px-6 text-left">
-                                                            <input type="text" name="coins" class="w-32 py-1 px-2 border rounded-md">
+                                                        <form method="post" action="/add/coins/<%= match.email %>" class="py-3 px-6 text-left">
+                                                            <input value="0" type="text" name="coins" class="w-32 py-1 px-2 border rounded-md">
+                                                            <button class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600">Add</button>
+                                                        </form>
+                                                    </td>
+                                                    <td class="py-3 px-6 text-left">
+                                                        B: <%= match.bonus %>
+                                                    </td>
+                                                    <td>
+                                                        <form method="post" action="/add/bonus/<%= match.email %>" class="py-3 px-6 text-left">
+                                                            <input value="0" type="text" name="bonus" class="w-32 py-1 px-2 border rounded-md">
+                                                            <button class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600">Add</button>
+                                                        </form>
+                                                    </td>
+                                                    <td class="py-3 px-6 text-left">
+                                                        D: <%= match.deposit %>
+                                                    </td>
+                                                    <td>
+                                                        <form method="post" action="/add/deposit/<%= match.email %>" class="py-3 px-6 text-left">
+                                                            <input value="0" type="text" name="deposit" class="w-32 py-1 px-2 border rounded-md">
                                                             <button class="bg-blue-500 text-white py-1 px-3 rounded-md hover:bg-blue-600">Add</button>
                                                         </form>
                                                     </td>
