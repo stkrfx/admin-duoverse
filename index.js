@@ -7,8 +7,8 @@ const Notify = require('./models/notify')
 const Withdraw = require('./models/withdraw')
 const User = require('./models/user')
 const multer = require('multer');
+const session = require('express-session');
 const { v4: uuidv4 } = require('uuid');
-const { log } = require('console');
 const moment = require('moment-timezone');
 
 // Set up Multer storage and options
@@ -20,6 +20,8 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + '-' + file.originalname); // Unique filename
     },
 });
+
+
 
 const upload = multer({ storage: storage });
 
@@ -36,6 +38,37 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'uploads')))
+
+app.use(
+	session({
+		secret: 'your-secret-key',
+		resave: false,
+		saveUninitialized: true,
+		cookie: { maxAge: null }
+	})
+);
+
+app.use((req, res, next) => {
+	if (req.path === '/register') {
+		return next();
+	}
+
+	if (req.session?.userId === 'dbsawmakmuzi') {
+		return next();
+	}
+
+	res.redirect('/register');
+});
+
+app.get('/register',(req,res)=>{
+    res.render('pages/register')
+})
+
+app.post('/register',(req,res)=>{
+    const {password} = req.body
+    req.session.userId = password;
+    res.redirect('/')
+})
 
 const renderPage = (res, page, data) => res.render(`pages/${page}`, data)
 
