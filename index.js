@@ -365,6 +365,7 @@ app.post('/user/:mid/:id',async(req,res)=>{
   console.log(currMatch);
     existingUser.kills = existingUser.kills + +req.body.kills
     existingUser.coins = existingUser.coins + +req.body.coins
+    existingUser.earnings = existingUser.earnings + +req.body.coins
     // currMatch.
     await existingUser.save()
     res.redirect(`/distribute/${currMatch._id}`)
